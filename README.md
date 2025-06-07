@@ -1,15 +1,11 @@
 # Notion Telegram Bot
 
-This project integrates Notion, OpenAI, and Telegram to create a bot that interacts with users and performs various tasks using these services.
+This project integrates Notion, OpenAI, and Telegram to create a bot that interacts with users and updates a Notion database with workout data extracted from user messages.
 
 ## Project Structure
 
-- `basic-telegrambot.py`: Contains the basic implementation of the Telegram bot.
-- `notion-app.py`: Handles interactions with the Notion API.
-- `open-ai.py`: Manages communication with the OpenAI API.
-- `tools.py`: Contains utility functions used across the project.
-- `requirements.txt`: Lists the dependencies required for the project.
-- `.env`: Stores sensitive configuration details.
+- `telegram_to_notion_openai.py`: The main script that implements the Telegram bot, integrates with OpenAI for data extraction, and updates the Notion database.
+- Other `.py` files: These are test files used for various purposes during development.
 
 ## Setting Up the .env File
 
@@ -19,8 +15,6 @@ The `.env` file should contain the following keys:
 TELEGRAM_TOKEN=<Your Telegram Bot Token>
 OPENAI_API_KEY=<Your OpenAI API Key>
 NOTION_API_KEY=<Your Notion API Key>
-NOTION_ENDPOINT=https://api.notion.com/v1
-NOTION_PAGE_ID=<Your Notion Page ID>
 DATABASE_ID=<Your Notion Database ID>
 ```
 
@@ -34,11 +28,11 @@ DATABASE_ID=<Your Notion Database ID>
 
    - Sign up or log in to [OpenAI](https://platform.openai.com/).
    - Navigate to the API section to generate your API key.
-3. **Notion API Key and IDs**:
+3. **Notion API Key and Database ID**:
 
    - Log in to [Notion](https://www.notion.so/).
    - Go to [Notion Developers](https://www.notion.so/my-integrations) and create an integration to get your API key.
-   - Share your Notion page or database with the integration to get the `NOTION_PAGE_ID` and `DATABASE_ID`.
+   - Share your Notion database with the integration to get the `DATABASE_ID`.
 
 ## Installation
 
@@ -64,23 +58,20 @@ DATABASE_ID=<Your Notion Database ID>
 Run the main script to start the bot:
 
 ```bash
-python open-ai.py
+python telegram_to_notion_openai.py
 ```
 
-## Updating the Notion Database
+## Features
 
-The `query_notion.py` script includes functionality to update a Notion database. It provides the following features:
+1. **Telegram Bot**:
 
-1. **Retrieve Database Properties**:
+   - Listens to user messages and extracts workout data.
+2. **OpenAI Integration**:
 
-   - The `get_notion_database` function retrieves the properties of a specified Notion database.
-2. **Write Rows to the Database**:
+   - Uses OpenAI's API to process user messages and extract structured workout data.
+3. **Notion Database Update**:
 
-   - The `write_row` function allows you to add rows to the Notion database with structured data. Each row includes details such as date, day of the week, exercise, weight, and notes.
-
-### Example Usage
-
-To update the Notion database, ensure the `.env` file is correctly configured with the `DATABASE_ID` and other required keys. Then, run the script to add data entries to the database.
+   - Updates a Notion database with the extracted workout data, including fields like date, day of the week, exercise, weight, and reps.
 
 ## License
 
