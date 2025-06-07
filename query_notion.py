@@ -12,13 +12,7 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 from datetime import datetime
 #%%
-load_dotenv()
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-NOTION_API_KEY = os.getenv("NOTION_API_KEY")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-NOTION_ENDPOINT = os.getenv("NOTION_ENDPOINT")
-NOTION_PAGE_ID = os.getenv("NOTION_PAGE_ID")
-DATABASE_ID = os.getenv("DATABASE_ID")
+
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 not_client = NotionClient(auth=os.getenv("NOTION_API_KEY"))
 #%%
@@ -89,11 +83,21 @@ def get_financial_week_number(date_str):
         return 52  # Consider dates before the first Monday as part of the last year's week 52
     return ((date_obj - first_monday).days // 7) + 1
 
+
+
+def get_todays_date():
+    """
+    Returns today's date as a string in the format YYYY-MM-DD.
+    """
+    return datetime.now().strftime("%Y-%m-%d")
+
+
+
 data = [
     {
-        "date": "2022-12-25",
-        "dayofweek": get_day_of_week("2022-12-25"),
-        "weeknum": get_financial_week_number("2022-12-25"),
+        "date": get_todays_date(),
+        "dayofweek": get_day_of_week(get_todays_date()),
+        "weeknum": get_financial_week_number(get_todays_date()),
         "setnum": 1,
         "exercise": "Bench Press",
         "group": "Chest",
@@ -103,9 +107,9 @@ data = [
         "notes": "Felt strong today",
     },
     {
-        "date": "2022-12-26",
-        "dayofweek": get_day_of_week("2022-12-26"),
-        "weeknum": get_financial_week_number("2022-12-26"),
+        "date": get_todays_date(),
+        "dayofweek": get_day_of_week(get_todays_date()),
+        "weeknum": get_financial_week_number(get_todays_date()),
         "setnum": 2,
         "exercise": "Squat",
         "group": 'Legs',
