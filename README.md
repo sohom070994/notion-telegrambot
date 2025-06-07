@@ -67,6 +67,21 @@ Run the main script to start the bot:
 python open-ai.py
 ```
 
+## Updating the Notion Database
+
+The `query_notion.py` script includes functionality to update a Notion database. It provides the following features:
+
+1. **Retrieve Database Properties**:
+
+   - The `get_notion_database` function retrieves the properties of a specified Notion database.
+2. **Write Rows to the Database**:
+
+   - The `write_row` function allows you to add rows to the Notion database with structured data. Each row includes details such as date, day of the week, exercise, weight, and notes.
+
+### Example Usage
+
+To update the Notion database, ensure the `.env` file is correctly configured with the `DATABASE_ID` and other required keys. Then, run the script to add data entries to the database.
+
 ## License
 
 This project is licensed under the MIT License.
